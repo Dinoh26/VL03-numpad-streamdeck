@@ -86,49 +86,41 @@
             bindings = <&kp LC(A) &kp LC(K)>;
         };
 
-        // Doble Esc: rebobinar la conversacion
-        m_esc2: m_esc2 {
+        // CanicaSync - panel de solicitudes
+        m_canica: m_canica {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <60>;
-            tap-ms = <40>;
-            bindings = <&kp ESC &kp ESC>;
-        };
-
-        // /compact
-        m_compact: m_compact {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
+            wait-ms = <8>;
+            tap-ms = <8>;
             bindings
-                = <&kp ES_SLASH &kp C &kp O &kp M &kp P &kp A &kp C &kp T>
+                = <&kp LG(R)>
+                , <&macro_wait_time 700>
+                , <&macro_wait_time 8>
+                , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
+                , <&kp C &kp A &kp N &kp I &kp C &kp A &kp S &kp Y &kp N &kp C>
+                , <&kp DOT &kp C &kp O &kp M>
+                , <&kp ES_SLASH &kp LS(A) &kp P &kp P>
+                , <&kp ES_SLASH &kp LS(S) &kp O &kp L &kp I &kp C &kp I &kp T &kp U &kp D>
                 , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
 
-        // /model
-        m_model: m_model {
+        // CheckID - panel de tenants
+        m_checkid: m_checkid {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
+            wait-ms = <8>;
+            tap-ms = <8>;
             bindings
-                = <&kp ES_SLASH &kp M &kp O &kp D &kp E &kp L>
-                , <&macro_wait_time 150>
-                , <&kp ENTER>
-                ;
-        };
-
-        // claude -c
-        m_cont: m_cont {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
-            bindings
-                = <&kp C &kp L &kp A &kp U &kp D &kp E &kp SPACE &kp ES_MINUS &kp C>
+                = <&kp LG(R)>
+                , <&macro_wait_time 700>
+                , <&macro_wait_time 8>
+                , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
+                , <&kp W &kp W &kp W &kp DOT>
+                , <&kp C &kp H &kp E &kp C &kp K &kp I &kp D &kp DOT &kp M &kp X>
+                , <&kp ES_SLASH &kp LS(A) &kp P &kp P>
+                , <&kp ES_SLASH &kp LS(T) &kp E &kp N &kp A &kp N &kp T &kp S>
                 , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
@@ -153,14 +145,14 @@
         // ------------------------------------------------------------------
         //  Capa BASE - toque directo
         //
-        //   Escritorio  Pegar       Gmail       (encoder)
+        //   Escritorio  CanicaSync  Gmail       (encoder)
         //   Recorte     Cerrar      Reabrir
         //   Ventanas    Mute        Dictado      ROJO
         // ------------------------------------------------------------------
         base_layer {
             display-name = "Base";
             bindings = <
-                &kp LG(D)       &kp LC(LS(V))  &m_gmail       &kp C_MUTE
+                &kp LG(D)       &m_canica      &m_gmail       &kp C_MUTE
                 &kp LG(LS(S))   &kp LC(W)      &kp LC(LS(T))
                 &kp LA(ESC)     &kp LC(LS(A))  &kp LG(H)      &lt_stop FUNC ESC
             >;
@@ -170,16 +162,16 @@
         // ------------------------------------------------------------------
         //  Capa FUNC - manteniendo la tecla roja
         //
-        //   /compact    /model      WhatsApp    (encoder)
-        //   Snap+pega   Vaciar      claude -c
-        //   Modo        libre       Esc Esc      (tecla de capa)
+        //   Otro monitor  CheckID   WhatsApp    (encoder)
+        //   Snap+pega    Vaciar    Portapapeles
+        //   Modo         libre     Restaurar    (tecla de capa)
         // ------------------------------------------------------------------
         func_layer {
             display-name = "Func";
             bindings = <
-                &m_compact     &m_model   &m_whats   &trans
-                &m_snap        &m_wipe    &m_cont
-                &kp LS(TAB)    &none      &m_esc2    &trans
+                &kp LG(LS(RIGHT))  &m_checkid  &m_whats     &trans
+                &m_snap            &m_wipe     &kp LG(V)
+                &kp LS(TAB)        &none       &kp LG(LS(M))  &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
