@@ -4,6 +4,19 @@
 #define BASE 0
 #define FUNC 1
 
+// ----------------------------------------------------------------------
+//  DISTRIBUCION ESPANOLA EN WINDOWS
+//  ZMK manda posiciones de teclado US. Windows las traduce a ES.
+//  Equivalencias que usamos abajo:
+//      :   ->  LS(DOT)     (Shift + punto)
+//      /   ->  LS(N7)      (Shift + 7)
+//      -   ->  SLASH       (la tecla US de diagonal da guion en ES)
+//  Si algun dia cambias Windows a ingles, hay que revertir esto.
+// ----------------------------------------------------------------------
+#define ES_COLON LS(DOT)
+#define ES_SLASH LS(N7)
+#define ES_MINUS SLASH
+
 / {
     behaviors {
         // Tecla roja: toque = Esc (Stop), mantener = capa FUNC.
@@ -17,17 +30,18 @@
     };
 
     macros {
-        // Gmail: Win+R, espera a que abra el dialogo, teclea y Enter
+        // Gmail: Win+R, espera el dialogo, teclea la URL completa y Enter
         m_gmail: m_gmail {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
+            wait-ms = <12>;
+            tap-ms = <12>;
             bindings
                 = <&kp LG(R)>
                 , <&macro_wait_time 400>
+                , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
-                , <&macro_wait_time 100>
+                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -36,13 +50,14 @@
         m_whats: m_whats {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
+            wait-ms = <12>;
+            tap-ms = <12>;
             bindings
                 = <&kp LG(R)>
                 , <&macro_wait_time 400>
-                , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P &kp COLON &kp SLASH &kp SLASH>
-                , <&macro_wait_time 100>
+                , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P>
+                , <&kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
+                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -51,13 +66,11 @@
         m_snap: m_snap {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
-            bindings
-                = <&kp LG(LS(S))>
-                , <&macro_wait_time 4000>
-                , <&kp LA(V)>
-                ;
+            // wait-ms es el tiempo entre un binding y el siguiente.
+            // Como solo hay dos, son exactamente 4 s para seleccionar.
+            wait-ms = <4000>;
+            tap-ms = <40>;
+            bindings = <&kp LG(LS(S))>, <&kp LA(V)>;
         };
 
         // Vacia el campo de texto activo
@@ -82,11 +95,11 @@
         m_compact: m_compact {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <25>;
-            tap-ms = <25>;
+            wait-ms = <20>;
+            tap-ms = <20>;
             bindings
-                = <&kp SLASH &kp C &kp O &kp M &kp P &kp A &kp C &kp T>
-                , <&macro_wait_time 100>
+                = <&kp ES_SLASH &kp C &kp O &kp M &kp P &kp A &kp C &kp T>
+                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -95,11 +108,11 @@
         m_model: m_model {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <25>;
-            tap-ms = <25>;
+            wait-ms = <20>;
+            tap-ms = <20>;
             bindings
-                = <&kp SLASH &kp M &kp O &kp D &kp E &kp L>
-                , <&macro_wait_time 100>
+                = <&kp ES_SLASH &kp M &kp O &kp D &kp E &kp L>
+                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -108,11 +121,11 @@
         m_cont: m_cont {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <25>;
-            tap-ms = <25>;
+            wait-ms = <20>;
+            tap-ms = <20>;
             bindings
-                = <&kp C &kp L &kp A &kp U &kp D &kp E &kp SPACE &kp MINUS &kp C>
-                , <&macro_wait_time 100>
+                = <&kp C &kp L &kp A &kp U &kp D &kp E &kp SPACE &kp ES_MINUS &kp C>
+                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -145,7 +158,7 @@
             bindings = <
                 &kp LG(D)       &kp LC(LS(V))  &m_gmail       &kp C_MUTE
                 &kp LG(LS(S))   &kp LC(W)      &kp LC(LS(T))
-                &kp LA(TAB)     &kp LC(LS(A))  &kp LG(H)      &lt_stop FUNC ESC
+                &kp LA(ESC)     &kp LC(LS(A))  &kp LG(H)      &lt_stop FUNC ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
