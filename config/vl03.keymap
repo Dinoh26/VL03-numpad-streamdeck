@@ -1,21 +1,139 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
-#define NUMPAD 0
-#define FUNC   1
+#define BASE 0
+#define FUNC 1
 
 / {
+    behaviors {
+        // Tecla roja: toque = Esc (Stop), mantener = capa FUNC.
+        // hold-preferred resuelve como hold en cuanto baja otra tecla,
+        // sin esperar los 180 ms.
+        lt_stop: lt_stop {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <180>;
+            flavor = "hold-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    macros {
+        // ---------- Capa BASE ----------
+
+        // Abre Gmail en el navegador por defecto via Win+R
+        m_gmail: m_gmail {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings
+                = <&kp LGUI(R)>
+                , <&macro_wait_time 400>
+                , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
+                , <&macro_wait_time 80>
+                , <&kp ENTER>
+                ;
+        };
+
+        // ---------- Capa FUNC ----------
+
+        // Abre WhatsApp de escritorio por protocolo
+        m_whats: m_whats {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings
+                = <&kp LGUI(R)>
+                , <&macro_wait_time 400>
+                , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P &kp COLON &kp SLASH &kp SLASH>
+                , <&macro_wait_time 80>
+                , <&kp ENTER>
+                ;
+        };
+
+        // Recorte de pantalla, espera 4 s, pega en Claude Code con Alt+V
+        m_snap: m_snap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings
+                = <&kp LGUI(LS(S))>
+                , <&macro_wait_time 4000>
+                , <&kp LALT(V)>
+                ;
+        };
+
+        // Vacia el campo de texto activo
+        m_wipe: m_wipe {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(A)>, <&kp DELETE>;
+        };
+
+        // Doble Esc: rebobinar la conversacion
+        m_esc2: m_esc2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <60>;
+            tap-ms = <30>;
+            bindings = <&kp ESC>, <&kp ESC>;
+        };
+
+        // /compact
+        m_compact: m_compact {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <20>;
+            tap-ms = <20>;
+            bindings
+                = <&kp SLASH &kp C &kp O &kp M &kp P &kp A &kp C &kp T>
+                , <&macro_wait_time 80>
+                , <&kp ENTER>
+                ;
+        };
+
+        // /model
+        m_model: m_model {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <20>;
+            tap-ms = <20>;
+            bindings
+                = <&kp SLASH &kp M &kp O &kp D &kp E &kp L>
+                , <&macro_wait_time 80>
+                , <&kp ENTER>
+                ;
+        };
+
+        // claude -c
+        m_cont: m_cont {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <20>;
+            tap-ms = <20>;
+            bindings
+                = <&kp C &kp L &kp A &kp U &kp D &kp E &kp SPACE &kp MINUS &kp C>
+                , <&macro_wait_time 80>
+                , <&kp ENTER>
+                ;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 
-        // Encoder switch (position 3) + the "0" key (position 10) toggles the
-        // Function layer. Because it is active on both layers, the same chord
-        // switches back to the Numpad layer again.
-        combo_func_toggle {
-            timeout-ms = <50>;
-            key-positions = <3 10>;
-            bindings = <&tog FUNC>;
-            layers = <NUMPAD FUNC>;
+        // ZMK Studio: posiciones 0 y 2 a la vez (las dos esquinas de
+        // arriba). Lejos una de otra, imposible por accidente.
+        combo_studio {
+            timeout-ms = <60>;
+            key-positions = <0 2>;
+            bindings = <&studio_unlock>;
+            layers = <BASE>;
         };
     };
 
@@ -23,36 +141,35 @@
         compatible = "zmk,keymap";
 
         // ------------------------------------------------------------------
-        //  Layer 0 - Numpad
-        //   7   8   9   (mute / encoder switch)
-        //   4   5   6
-        //   1   2   3   0
-        //  Encoder rotate = volume up / down
+        //  Capa BASE - toque directo
+        //
+        //   Comprimir   Destello    Globo       (encoder)
+        //   Captura     Basura      Recuperar
+        //   Ciclo       Microfono   Eject        ROJO
         // ------------------------------------------------------------------
-        numpad_layer {
-            display-name = "Numpad";
+        base_layer {
+            display-name = "Base";
             bindings = <
-                &kp N7  &kp N8  &kp N9  &kp C_MUTE
-                &kp N4  &kp N5  &kp N6
-                &kp N1  &kp N2  &kp N3  &kp N0
+                &kp LGUI(D)   &kp LC(LS(V))  &m_gmail         &kp C_MUTE
+                &kp LGUI(LS(S)) &kp LC(W)    &kp LC(LS(T))
+                &kp LALT(TAB) &kp LC(LS(A))  &kp LGUI(H)      &lt_stop FUNC ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         // ------------------------------------------------------------------
-        //  Layer 1 - Function (F13-F21)
-        //   F13  F14  F15  (mute / encoder switch)
-        //   F16  F17  F18
-        //   F19  F20  F21  studio_unlock
-        //  Encoder rotate = volume up / down
-        //  Tap the "0" key here to unlock ZMK Studio for editing.
+        //  Capa FUNC - manteniendo la tecla roja
+        //
+        //   /compact    /model      WhatsApp    (encoder)
+        //   Snap+pega   Vaciar      claude -c
+        //   Modo        libre       Esc Esc      (tecla de capa)
         // ------------------------------------------------------------------
-        function_layer {
-            display-name = "Function";
+        func_layer {
+            display-name = "Func";
             bindings = <
-                &kp F13  &kp F14  &kp F15  &kp C_MUTE
-                &kp F16  &kp F17  &kp F18
-                &kp F19  &kp F20  &kp F21  &studio_unlock
+                &m_compact    &m_model    &m_whats     &trans
+                &m_snap       &m_wipe     &m_cont
+                &kp LS(TAB)   &none       &m_esc2      &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
