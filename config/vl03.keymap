@@ -34,11 +34,12 @@
         m_gmail: m_gmail {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <12>;
-            tap-ms = <12>;
+            wait-ms = <8>;
+            tap-ms = <8>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 400>
+                , <&macro_wait_time 700>
+                , <&macro_wait_time 8>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
                 , <&macro_wait_time 150>
@@ -50,11 +51,12 @@
         m_whats: m_whats {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <12>;
-            tap-ms = <12>;
+            wait-ms = <8>;
+            tap-ms = <8>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 400>
+                , <&macro_wait_time 700>
+                , <&macro_wait_time 8>
                 , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P>
                 , <&kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&macro_wait_time 150>
@@ -73,13 +75,15 @@
             bindings = <&kp LG(LS(S))>, <&kp LA(V)>;
         };
 
-        // Vacia el campo de texto activo
+        // Vacia el campo de Claude Code.
+        // Ctrl+A va al inicio de linea (convencion readline, no
+        // "seleccionar todo"). Ctrl+K borra del cursor al final.
         m_wipe: m_wipe {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&kp LC(A) &kp DELETE>;
+            bindings = <&kp LC(A) &kp LC(K)>;
         };
 
         // Doble Esc: rebobinar la conversacion
