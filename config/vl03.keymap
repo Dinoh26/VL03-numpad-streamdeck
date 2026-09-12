@@ -27,16 +27,16 @@
         //   7   8   9   (mute / encoder switch)
         //   4   5   6
         //   1   2   3   0
-        //  Encoder rotate = volume down / up
+        //  Encoder rotate = volume up / down
         // ------------------------------------------------------------------
         numpad_layer {
             display-name = "Numpad";
-            bindings = <
+            bindings = 
                 &kp N7  &kp N8  &kp N9  &kp C_MUTE
                 &kp N4  &kp N5  &kp N6
                 &kp N1  &kp N2  &kp N3  &kp N0
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         // ------------------------------------------------------------------
@@ -44,17 +44,17 @@
         //   F13  F14  F15  (mute / encoder switch)
         //   F16  F17  F18
         //   F19  F20  F21  studio_unlock
-        //  Encoder rotate = volume down / up
+        //  Encoder rotate = volume up / down
         //  Tap the "0" key here to unlock ZMK Studio for editing.
         // ------------------------------------------------------------------
         function_layer {
             display-name = "Function";
-            bindings = <
+            bindings = 
                 &kp F13  &kp F14  &kp F15  &kp C_MUTE
                 &kp F16  &kp F17  &kp F18
                 &kp F19  &kp F20  &kp F21  &studio_unlock
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
