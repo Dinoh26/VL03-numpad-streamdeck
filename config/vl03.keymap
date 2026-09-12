@@ -7,8 +7,6 @@
 / {
     behaviors {
         // Tecla roja: toque = Esc (Stop), mantener = capa FUNC.
-        // hold-preferred resuelve como hold en cuanto baja otra tecla,
-        // sin esperar los 180 ms.
         lt_stop: lt_stop {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -19,50 +17,46 @@
     };
 
     macros {
-        // ---------- Capa BASE ----------
-
-        // Abre Gmail en el navegador por defecto via Win+R
+        // Gmail: Win+R, espera a que abra el dialogo, teclea y Enter
         m_gmail: m_gmail {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <30>;
             bindings
-                = <&kp LGUI(R)>
+                = <&kp LG(R)>
                 , <&macro_wait_time 400>
                 , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
-                , <&macro_wait_time 80>
+                , <&macro_wait_time 100>
                 , <&kp ENTER>
                 ;
         };
 
-        // ---------- Capa FUNC ----------
-
-        // Abre WhatsApp de escritorio por protocolo
+        // WhatsApp de escritorio por protocolo
         m_whats: m_whats {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <30>;
             bindings
-                = <&kp LGUI(R)>
+                = <&kp LG(R)>
                 , <&macro_wait_time 400>
                 , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P &kp COLON &kp SLASH &kp SLASH>
-                , <&macro_wait_time 80>
+                , <&macro_wait_time 100>
                 , <&kp ENTER>
                 ;
         };
 
-        // Recorte de pantalla, espera 4 s, pega en Claude Code con Alt+V
+        // Recorte, 4 s para seleccionar, y pega con Alt+V
         m_snap: m_snap {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <30>;
             bindings
-                = <&kp LGUI(LS(S))>
+                = <&kp LG(LS(S))>
                 , <&macro_wait_time 4000>
-                , <&kp LALT(V)>
+                , <&kp LA(V)>
                 ;
         };
 
@@ -70,9 +64,9 @@
         m_wipe: m_wipe {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
-            bindings = <&kp LC(A)>, <&kp DELETE>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&kp LC(A) &kp DELETE>;
         };
 
         // Doble Esc: rebobinar la conversacion
@@ -80,19 +74,19 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <60>;
-            tap-ms = <30>;
-            bindings = <&kp ESC>, <&kp ESC>;
+            tap-ms = <40>;
+            bindings = <&kp ESC &kp ESC>;
         };
 
         // /compact
         m_compact: m_compact {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
+            wait-ms = <25>;
+            tap-ms = <25>;
             bindings
                 = <&kp SLASH &kp C &kp O &kp M &kp P &kp A &kp C &kp T>
-                , <&macro_wait_time 80>
+                , <&macro_wait_time 100>
                 , <&kp ENTER>
                 ;
         };
@@ -101,11 +95,11 @@
         m_model: m_model {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
+            wait-ms = <25>;
+            tap-ms = <25>;
             bindings
                 = <&kp SLASH &kp M &kp O &kp D &kp E &kp L>
-                , <&macro_wait_time 80>
+                , <&macro_wait_time 100>
                 , <&kp ENTER>
                 ;
         };
@@ -114,11 +108,11 @@
         m_cont: m_cont {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <20>;
-            tap-ms = <20>;
+            wait-ms = <25>;
+            tap-ms = <25>;
             bindings
                 = <&kp C &kp L &kp A &kp U &kp D &kp E &kp SPACE &kp MINUS &kp C>
-                , <&macro_wait_time 80>
+                , <&macro_wait_time 100>
                 , <&kp ENTER>
                 ;
         };
@@ -127,8 +121,7 @@
     combos {
         compatible = "zmk,combos";
 
-        // ZMK Studio: posiciones 0 y 2 a la vez (las dos esquinas de
-        // arriba). Lejos una de otra, imposible por accidente.
+        // ZMK Studio: posiciones 0 y 2 a la vez (las esquinas de arriba)
         combo_studio {
             timeout-ms = <60>;
             key-positions = <0 2>;
@@ -143,16 +136,16 @@
         // ------------------------------------------------------------------
         //  Capa BASE - toque directo
         //
-        //   Comprimir   Destello    Globo       (encoder)
-        //   Captura     Basura      Recuperar
-        //   Ciclo       Microfono   Eject        ROJO
+        //   Escritorio  Pegar       Gmail       (encoder)
+        //   Recorte     Cerrar      Reabrir
+        //   Ventanas    Mute        Dictado      ROJO
         // ------------------------------------------------------------------
         base_layer {
             display-name = "Base";
             bindings = <
-                &kp LGUI(D)   &kp LC(LS(V))  &m_gmail         &kp C_MUTE
-                &kp LGUI(LS(S)) &kp LC(W)    &kp LC(LS(T))
-                &kp LALT(TAB) &kp LC(LS(A))  &kp LGUI(H)      &lt_stop FUNC ESC
+                &kp LG(D)       &kp LC(LS(V))  &m_gmail       &kp C_MUTE
+                &kp LG(LS(S))   &kp LC(W)      &kp LC(LS(T))
+                &kp LA(TAB)     &kp LC(LS(A))  &kp LG(H)      &lt_stop FUNC ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
@@ -167,9 +160,9 @@
         func_layer {
             display-name = "Func";
             bindings = <
-                &m_compact    &m_model    &m_whats     &trans
-                &m_snap       &m_wipe     &m_cont
-                &kp LS(TAB)   &none       &m_esc2      &trans
+                &m_compact     &m_model   &m_whats   &trans
+                &m_snap        &m_wipe    &m_cont
+                &kp LS(TAB)    &none      &m_esc2    &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
