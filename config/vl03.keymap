@@ -34,15 +34,15 @@
         m_gmail: m_gmail {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <15>;
-            tap-ms = <15>;
+            wait-ms = <40>;
+            tap-ms = <20>;
             bindings
-                = <&kp LG(R)>
-                , <&macro_wait_time 1200>
-                , <&macro_wait_time 15>
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp R>
+                , <&macro_release &kp LGUI>
+                , <&kp LSHFT &kp LSHFT &kp LSHFT>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
-                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -51,15 +51,15 @@
         m_whats: m_whats {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <15>;
-            tap-ms = <15>;
+            wait-ms = <40>;
+            tap-ms = <20>;
             bindings
-                = <&kp LG(R)>
-                , <&macro_wait_time 1200>
-                , <&macro_wait_time 15>
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp R>
+                , <&macro_release &kp LGUI>
+                , <&kp LSHFT &kp LSHFT &kp LSHFT>
                 , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P>
                 , <&kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
-                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -90,18 +90,18 @@
         m_canica: m_canica {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <15>;
-            tap-ms = <15>;
+            wait-ms = <40>;
+            tap-ms = <20>;
             bindings
-                = <&kp LG(R)>
-                , <&macro_wait_time 1200>
-                , <&macro_wait_time 15>
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp R>
+                , <&macro_release &kp LGUI>
+                , <&kp LSHFT &kp LSHFT &kp LSHFT>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp C &kp A &kp N &kp I &kp C &kp A &kp S &kp Y &kp N &kp C>
                 , <&kp DOT &kp C &kp O &kp M>
                 , <&kp ES_SLASH &kp LS(A) &kp P &kp P>
                 , <&kp ES_SLASH &kp LS(S) &kp O &kp L &kp I &kp C &kp I &kp T &kp U &kp D>
-                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
@@ -110,18 +110,18 @@
         m_checkid: m_checkid {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <15>;
-            tap-ms = <15>;
+            wait-ms = <40>;
+            tap-ms = <20>;
             bindings
-                = <&kp LG(R)>
-                , <&macro_wait_time 1200>
-                , <&macro_wait_time 15>
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp R>
+                , <&macro_release &kp LGUI>
+                , <&kp LSHFT &kp LSHFT &kp LSHFT>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp W &kp W &kp W &kp DOT>
                 , <&kp C &kp H &kp E &kp C &kp K &kp I &kp D &kp DOT &kp M &kp X>
                 , <&kp ES_SLASH &kp LS(A) &kp P &kp P>
                 , <&kp ES_SLASH &kp LS(T) &kp E &kp N &kp A &kp N &kp T &kp S>
-                , <&macro_wait_time 150>
                 , <&kp ENTER>
                 ;
         };
