@@ -38,7 +38,7 @@
             tap-ms = <15>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 700>
+                , <&macro_wait_time 1200>
                 , <&macro_wait_time 15>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp M &kp A &kp I &kp L &kp DOT &kp G &kp O &kp O &kp G &kp L &kp E &kp DOT &kp C &kp O &kp M>
@@ -55,7 +55,7 @@
             tap-ms = <15>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 700>
+                , <&macro_wait_time 1200>
                 , <&macro_wait_time 15>
                 , <&kp W &kp H &kp A &kp T &kp S &kp A &kp P &kp P>
                 , <&kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
@@ -94,7 +94,7 @@
             tap-ms = <15>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 700>
+                , <&macro_wait_time 1200>
                 , <&macro_wait_time 15>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp C &kp A &kp N &kp I &kp C &kp A &kp S &kp Y &kp N &kp C>
@@ -114,7 +114,7 @@
             tap-ms = <15>;
             bindings
                 = <&kp LG(R)>
-                , <&macro_wait_time 700>
+                , <&macro_wait_time 1200>
                 , <&macro_wait_time 15>
                 , <&kp H &kp T &kp T &kp P &kp S &kp ES_COLON &kp ES_SLASH &kp ES_SLASH>
                 , <&kp W &kp W &kp W &kp DOT>
